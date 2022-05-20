@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import { styled } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
@@ -13,6 +13,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {
+    removeCategory
+} from "../store/actions/actionManage"
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -25,9 +28,13 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-const CategoryCard = (props) => {
+const CategoryCard = ({ categoryDetails, id, removeCategory }) => {
 
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
+
+    const handleDelete = () => {
+        removeCategory(id);
+    }
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -38,14 +45,18 @@ const CategoryCard = (props) => {
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            R
+                            {categoryDetails.title !== "" ? categoryDetails.title.charAt(0) : "-"}
                         </Avatar>
                     }
                     title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
+                    subheader={new Date(categoryDetails.dateCreated).toLocaleString('en-IN', { timeZone: 'IST' })}
                 />
                 <CardActions disableSpacing>
-                    <IconButton aria-label="Delete Forever" component="span">
+                    <IconButton
+                        aria-label="Delete Forever"
+                        component="span"
+                        onClick={handleDelete}
+                    >
                         <DeleteForeverIcon />
                     </IconButton>
                     <ExpandMore
@@ -75,4 +86,6 @@ const mapStateToProps = (state) => ({
 
 });
 
-export default connect(mapStateToProps, {})(CategoryCard);
+export default connect(mapStateToProps, {
+    removeCategory
+})(CategoryCard);
