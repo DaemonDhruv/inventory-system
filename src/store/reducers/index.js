@@ -6,11 +6,11 @@ import reducerManage from "./reducerManage";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ['reducerManage']
+    whitelist: ['manage']
 }
 
 const appReducer = combineReducers({
-    reducerManage
+    manage: reducerManage
 });
 
 const rootReducer = (state, action) => {
