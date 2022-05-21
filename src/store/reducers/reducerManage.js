@@ -19,15 +19,14 @@ const reducer = (state = initialState, action) => {
             if (data.categoryName !== "" && data.fields.length > 0) {
                 data.shouldBeListed = true;
             }
+            // console.log({ [key]: { ...state.categories[key], ...data } })
             return {
                 ...state,
-                [key]: { ...state.categories[key], data }
+                categories: { ...state.categories, [key]: { ...data } }
             }
         case "REMOVE_CATEGORY":
             const newCategories = { ...state.categories }
-            console.log(action.payload.key)
             delete newCategories[action.payload.key];
-            console.log(newCategories)
             return {
                 ...state,
                 categories: { ...newCategories }

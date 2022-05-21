@@ -34,7 +34,7 @@ const ManagePage = (props) => {
             }
             <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
                 <Button
-                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                    sx={{ position: 'fixed', top: 16, right: 16 }}
                     variant="contained"
                     onClick={handleAdd}
                 >
