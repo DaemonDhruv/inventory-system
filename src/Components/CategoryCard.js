@@ -56,9 +56,7 @@ const CategoryCard = (props) => {
     }
 
     const removeField = (index) => {
-        const newFields = categoryFields.fields;
-        console.log(newFields)
-        console.log(index)
+        var newFields = [...categoryFields.fields];
         setCategoryFields(prevState => {
             return {
                 ...prevState,
